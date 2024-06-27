@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +13,7 @@ export function ServiceRequestModal() {
   const { isOpen, onClose } = useServiceRequest();
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-11/12 sm:max-w-screen-sm item-center rounded-lg border-slate-700">
+      <DialogContent className="item-center w-11/12 rounded-lg border-slate-700 sm:max-w-screen-sm">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-center">
             Service Request

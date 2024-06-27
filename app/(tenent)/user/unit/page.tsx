@@ -4,6 +4,7 @@ import UserTabNav from "../_components/UserTabNav";
 import UnitCard from "./_components/Card";
 import { GiAutoRepair } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
+
 interface unitCardProps {
   title: string;
   icon: React.ReactNode;
@@ -25,9 +26,9 @@ const UnitPage = () => {
   return (
     <div>
       <UserTabNav pageName={pageName} />
-      <div className="container max-w-screen-md flex flex-col justify-between">
+      <div className="container flex max-w-screen-md flex-col justify-between">
         <UnitHero />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {UnitCards.map((card, index) => (
             <UnitCard key={index} title={card.title} icon={card.icon} />
           ))}

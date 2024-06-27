@@ -44,16 +44,15 @@ const bottomNavList: RouteProps[] = [
 const BottomMenu = () => {
   const pathname = usePathname();
   const router = useRouter();
-  console.log(pathname);
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-100 dark:bg-primary-foreground dark:border-gray-600">
-      <div className="container max-w-screen-md grid grid-cols-4 place-items-center">
+    <div className="fixed bottom-0 left-0 z-50 h-16 w-full border-t border-gray-100 bg-white dark:border-gray-600 dark:bg-primary-foreground">
+      <div className="container grid max-w-screen-md grid-cols-4 place-items-center">
         {bottomNavList.map((route, index) => {
           return (
             <Button
               key={index}
-              className="flex flex-col items-center justify-center h-16 w-16"
+              className="flex h-16 w-16 flex-col items-center justify-center"
               variant="ghost"
               onClick={() => router.push(route.link)}
             >

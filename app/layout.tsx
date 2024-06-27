@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme";
 import { ModalProviders } from "@/components/providers/modal-providers";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster theme="light" position="top-right" duration={2000} />
           <ModalProviders />
           {children}
         </ThemeProvider>
