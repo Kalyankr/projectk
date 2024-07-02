@@ -12,9 +12,15 @@ import { ModeToggle } from "@/components/ToggleMode";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // Logout the user
+  const logout = () => {
+    signOut();
+  };
   return (
     <span className="flex">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -30,7 +36,7 @@ const Sidebar = () => {
         </SheetTrigger>
         <SheetContent side="left">
           <SheetHeader className="space-y-4">
-            <SheetTitle className="flex items-center space-x-4 font-bold text-xl">
+            <SheetTitle className="flex items-center space-x-4 text-xl font-bold">
               <Avatar>
                 <AvatarImage
                   src="https://github.com/kalyankr.png"
@@ -45,14 +51,16 @@ const Sidebar = () => {
             </SheetDescription>
             <Separator />
           </SheetHeader>
-          <div className="flex flex-col mt-4 space-y-1">
+          <div className="mt-4 flex flex-col space-y-1">
             <Button variant="ghost">Account</Button>
             <Button variant="ghost">Privacy Policy</Button>
             <Button variant="ghost">Terms and Conditions</Button>
-            <div className="flex justify-center  items-center">
+            <div className="flex items-center justify-center">
               <ModeToggle /> <span className="pl-2">Toggle theme</span>
             </div>
-            <Button variant="ghost">Logout</Button>
+            <Button variant="ghost" onClick={logout}>
+              Logout
+            </Button>
           </div>
         </SheetContent>
       </Sheet>

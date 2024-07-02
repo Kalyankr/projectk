@@ -5,35 +5,35 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-36 gap-10 pt-36">
-      <div className="text-center lg:text-start space-y-6">
-        <main className="text-5xl md:text-6xl font-bold">
+    <section className="container grid place-items-center gap-10 py-20 pt-36 md:py-36 lg:grid-cols-2">
+      <div className="space-y-6 text-center lg:text-start">
+        <main className="text-5xl font-bold md:text-6xl">
           <h1 className="inline">
-            <span className="inline bg-gradient-to-r from-[#F596D3]  to-[#D247BF] text-transparent bg-clip-text">
+            <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] bg-clip-text text-transparent">
               Empower
             </span>{" "}
             Your Realty Business with
           </h1>{" "}
           <h2 className="inline">
-            <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
+            <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] bg-clip-text text-transparent">
               Smart Rental Management
             </span>{" "}
           </h2>
         </main>
-        <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
+        <p className="mx-auto text-xl text-muted-foreground md:w-10/12 lg:mx-0">
           Build your rental business effortlessly with the required tools to
           Stay Organized and Elevate Efficiency.
         </p>
-        <div className="space-y-4 md:space-y-0 md:space-x-4">
+        <div className="space-y-4 md:space-x-4 md:space-y-0">
           <Link
             href="/register"
-            className={`w-full md:w-1/3 text-[14px] ${buttonVariants({})}`}
+            className={`w-full text-[14px] md:w-1/3 ${buttonVariants({})}`}
           >
             Get Started
           </Link>
           <Link
-            href="/login"
-            className={`w-full md:w-1/3 text-[14px] ${buttonVariants({
+            href="/auth/login"
+            className={`w-full text-[14px] md:w-1/3 ${buttonVariants({
               variant: "outline",
             })}`}
           >
@@ -43,7 +43,7 @@ const Hero = () => {
       </div>
       {/* Hero card or image */}
       <div className="z-10">
-        <div className="hidden lg:flex flex-row flex-wrap gap-8 relative ">
+        <div className="relative hidden flex-row flex-wrap gap-8 lg:flex">
           <Image
             src="/herodash.png"
             width={600}
