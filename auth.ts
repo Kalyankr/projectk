@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import { getUserById } from "./lib/data/user";
+import { getTwoFactorConfirmationByUserId } from "./lib/data/two-factor-confirmation";
 import { UserRole } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import db from "./lib/data/db";
@@ -31,14 +32,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider !== "credentials") {
         return true;
       }
-      // prevent user from signing in if email is not verified
+
       if (!user?.id) {
         return false;
       }
 
       const existingUser = await getUserById(user.id);
+      // prevent user from signing in if email is not verified
       if (!existingUser || !existingUser?.emailVerified) {
         return false;
+      }
+      // prevent user from signing in if two factor is enabled
+      if (existingUser.isTwoFactorEnabled) {
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+          existingUser.id,
+        );
+        if (!twoFactorConfirmation) {
+          return false;
+        }
+        // TODO : Delete the two factor confirmation after successful login
+        await db.twoFactorConfirmation.delete({
+          where: {
+            id: twoFactorConfirmation.id,
+          },
+        });
       }
 
       return true;

@@ -28,6 +28,8 @@ export const LoginForm = () => {
     searchParams.get("error") === "OAuthAccountNotLinkedError"
       ? "Account not linked with any provider"
       : "";
+
+  const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
@@ -45,6 +47,7 @@ export const LoginForm = () => {
         setError(response.data?.error);
       } else {
         setSuccess(response.data?.success);
+        if (response.data?.twoFactor) setShowTwoFactor(true);
       }
     },
   });
@@ -54,6 +57,7 @@ export const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
+      twoFactorCode: "",
     },
   });
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
@@ -61,6 +65,7 @@ export const LoginForm = () => {
     setSuccess("");
     execute(values);
   };
+
   return (
     <CardWrapper
       headerLabel="Welcome back"
@@ -72,47 +77,70 @@ export const LoginForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="jhon.doe@email.com"
-                      type="email"
-                      disabled={isExecuting}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Enter your password"
-                      type="password"
-                      disabled={isExecuting}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {showTwoFactor && (
+              <FormField
+                control={form.control}
+                name="twoFactorCode"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Enter the two factor code"
+                        disabled={isExecuting}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {!showTwoFactor && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="jhon.doe@email.com"
+                          type="email"
+                          disabled={isExecuting}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Enter your password"
+                          type="password"
+                          disabled={isExecuting}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isExecuting}>
-            Login
+            {showTwoFactor ? "Confirm" : "Login"}
           </Button>
         </form>
       </Form>
