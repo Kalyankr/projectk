@@ -1,8 +1,8 @@
-import CardWrapper from "@/components/auth/card-wrapper";
 import { PasswordResetForm } from "@/components/auth/password-reset";
+import { ResetPassword } from "@/components/auth/reset";
 
 const NewPasswordPage = () => {
-  return <PasswordResetForm />;
+  return <ResetPassword />;
 };
 
 export default NewPasswordPage;

@@ -28,7 +28,7 @@ const ServiceRequestCard = ({
   referenceNumber,
 }: ServiceRequestCardProps) => {
   return (
-    <Card className="relative my-4 w-full space-x-1 rounded-xl shadow-lg hover:cursor-pointer hover:bg-muted dark:shadow-slate-900">
+    <Card className="zoom-effect relative my-4 w-full space-x-1 rounded-xl shadow-lg hover:cursor-pointer dark:shadow-slate-900">
       <Badge
         variant="secondary"
         className={cn(

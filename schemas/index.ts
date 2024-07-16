@@ -16,11 +16,15 @@ export const RegisterSchema = z.object({
   }),
 });
 
-export const PasswordResetSchema = z.object({
+export const NewPasswordSchema = z.object({
   newPassword: z.string().min(8, {
     message: "Password must be at least 8 characters long",
   }),
   confirmPassword: z.string().min(8, {
     message: "Password must be at least 8 characters long",
   }),
+});
+
+export const ResetSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address" }),
 });

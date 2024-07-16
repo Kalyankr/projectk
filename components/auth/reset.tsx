@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import * as z from "zod";
 import {
   Form,
   FormControl,
@@ -18,24 +17,19 @@ import FormError from "@/components/form-error";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { NewPasswordSchema } from "@/schemas";
-import { newPassword } from "@/actions/new-password";
-import { useSearchParams } from "next/navigation";
+import * as z from "zod";
+import { ResetSchema } from "@/schemas";
+import { resetPassword } from "@/actions/resetPassword";
 
-export const PasswordResetForm = () => {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-
+export const ResetPassword = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const boundNewPassword = newPassword.bind(null, token);
-  const { execute, isExecuting } = useAction(boundNewPassword, {
+  const { execute, isExecuting } = useAction(resetPassword, {
     onError: (response) => {
       setError(
         response.error.fetchError ||
           response.error.serverError ||
-          response.error.validationErrors ||
           "Something went wrong",
       );
       form.reset();
@@ -49,59 +43,37 @@ export const PasswordResetForm = () => {
     },
   });
 
-  const form = useForm<z.infer<typeof NewPasswordSchema>>({
-    resolver: zodResolver(NewPasswordSchema),
+  const form = useForm<z.infer<typeof ResetSchema>>({
+    resolver: zodResolver(ResetSchema),
     defaultValues: {
-      newPassword: "",
-      confirmPassword: "",
+      email: "",
     },
   });
-  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
+  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
     setError("");
     setSuccess("");
-    // newPassword.bind(token);
     execute(values);
   };
-
   return (
     <CardWrapper
-      headerLabel="Reset your password"
+      headerLabel="Forgot your password?"
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
-      showPasswordReset={false}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <FormField
               control={form.control}
-              name="newPassword"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New Password</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="Enter your new password"
-                      type="password"
-                      disabled={isExecuting}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Confirm your password"
-                      type="password"
+                      placeholder="jhon.doe@email.com"
+                      type="email"
                       disabled={isExecuting}
                     />
                   </FormControl>
@@ -113,7 +85,7 @@ export const PasswordResetForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isExecuting}>
-            Reset Password
+            Reset Your Password
           </Button>
         </form>
       </Form>

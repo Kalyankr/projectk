@@ -4,7 +4,7 @@ import { actionClient } from "@/lib/create-safe-action";
 import { getUserByEmail } from "@/lib/data/user";
 import { RegisterSchema } from "@/schemas";
 import db from "@/lib/data/db";
-import { generateVerificationToken } from "@/lib/data/token";
+import { generateVerificationToken } from "@/lib/data/tokens";
 import { sendVerificationEmail } from "@/lib/data/mail";
 
 export const registerUser = actionClient

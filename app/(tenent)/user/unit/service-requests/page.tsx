@@ -69,7 +69,7 @@ const ServiceRequests = () => {
     <div>
       <UserTabNav pageName="Service Requests" />
       <Tabs defaultValue="open" className="container mt-4 max-w-screen-md">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="t grid w-full grid-cols-2">
           <TabsTrigger value="open">Open Requests</TabsTrigger>
           <TabsTrigger value="closed">Closed Requests</TabsTrigger>
         </TabsList>
@@ -88,7 +88,7 @@ const ServiceRequests = () => {
               />
             ))}
         </TabsContent>
-        <TabsContent value="closed">
+        <TabsContent value="closed" className="zoom-effect">
           {serviceRequests
             .filter((serviceRequest) => serviceRequest.status === "CLOSED")
             .map((serviceRequest, index) => (

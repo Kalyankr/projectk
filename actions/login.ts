@@ -3,7 +3,7 @@
 import { signIn } from "@/auth";
 import { actionClient } from "@/lib/create-safe-action";
 import { sendVerificationEmail } from "@/lib/data/mail";
-import { generateVerificationToken } from "@/lib/data/token";
+import { generateVerificationToken } from "@/lib/data/tokens";
 import { getUserByEmail } from "@/lib/data/user";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schemas";
