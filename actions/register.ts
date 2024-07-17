@@ -15,7 +15,7 @@ export const registerUser = actionClient
     // Check if user already exists
     const existingUser = await getUserByEmail(user.email);
     if (existingUser) {
-      throw new Error("User already exists");
+      return { error: "User already exists" };
     }
 
     // Create user

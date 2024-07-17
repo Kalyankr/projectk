@@ -33,9 +33,9 @@ export const PasswordResetForm = () => {
   const { execute, isExecuting } = useAction(boundNewPassword, {
     onError: (response) => {
       setError(
-        response.error.fetchError ||
-          response.error.serverError ||
-          response.error.validationErrors ||
+        // response.error.fetchError ||
+        response.error.serverError ||
+          // response.error.validationErrors ||
           "Something went wrong",
       );
       form.reset();

@@ -25,17 +25,19 @@ export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const { execute, isExecuting } = useAction(registerUser, {
-    onError: (data) => {
+  const { execute, isExecuting, result } = useAction(registerUser, {
+    onError: (response) => {
       setSuccess("");
-      setError(data.error.fetchError || "Something went wrong");
+      setError(response.error.fetchError || "Something went wrong");
     },
-    onSuccess: (data) => {
+    onSuccess: (response) => {
       setError("");
-      setSuccess(
-        data.data?.success ||
-          "Registered Successfully, Please check your email to verify.",
-      );
+      if (response.data?.error) {
+        setError(response.data.error);
+      }
+      if (response.data?.success) {
+        setSuccess(response.data.success);
+      }
     },
   });
 
